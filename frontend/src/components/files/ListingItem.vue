@@ -107,7 +107,7 @@ export default {
       return moment(this.modified).fromNow();
     },
     normalTime: function () {
-      return moment(this.modified).format("DD/MM/YYYY HH:MM");
+      return moment(this.modified).format("DD/MM/YYYY HH:mm:ss");
     },
     dragStart: function () {
       if (this.selectedCount === 0) {
