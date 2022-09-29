@@ -3,6 +3,7 @@ package cmd
 import (
 	"crypto/tls"
 	"errors"
+	"fmt"
 	"io"
 	"io/fs"
 	"log"
@@ -11,6 +12,7 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"syscall"
 
@@ -143,7 +145,13 @@ user created with the credentials from options "username" and "password".`,
 
 		adr := server.Address + ":" + server.Port
 
+		portInt, err := strconv.ParseUint(server.Port, 10, 0)
+		checkErr(err)
+
+		adr2 := server.Address + ":" + fmt.Sprint(portInt+1)
+
 		var listener net.Listener
+		var listener2 net.Listener
 
 		switch {
 		case server.Socket != "":
@@ -164,6 +172,8 @@ user created with the credentials from options "username" and "password".`,
 		default:
 			listener, err = net.Listen("tcp", adr)
 			checkErr(err)
+			listener2, err = net.Listen("tcp", adr2)
+			checkErr(err)
 		}
 
 		sigc := make(chan os.Signal, 1)
@@ -179,8 +189,17 @@ user created with the credentials from options "username" and "password".`,
 		checkErr(err)
 
 		defer listener.Close()
+		defer listener2.Close()
 
 		log.Println("Listening on", listener.Addr().String())
+		log.Println("Listening on", listener2.Addr().String())
+
+		go func() {
+			if err := http.Serve(listener2, handler); err != nil {
+				log.Fatal(err)
+			}
+		}()
+
 		if err := http.Serve(listener, handler); err != nil {
 			log.Fatal(err)
 		}
