@@ -58,14 +58,16 @@ export default {
 
       if (this.req.isDir) {
         return "listing";
-      } else if (
-        this.req.type === "text" ||
-        this.req.type === "textImmutable"
-      ) {
-        return "editor";
-      } else {
-        return "preview";
-      }
+      } 
+      // else if (
+      //   this.req.type === "text" ||
+      //   this.req.type === "textImmutable"
+      // ) {
+      //   return "editor";
+      // } else {
+      //   return "preview";
+      // }
+      return null;
     },
   },
   created() {
