@@ -28,7 +28,7 @@
       <p v-else class="size" :data-order="humanSize()">{{ humanSize() }}</p>
 
       <p class="modified">
-        <time :datetime="modified">{{ normalTime() }}</time>
+        <time :datetime="modified">{{ humanTime() }}</time>
       </p>
     </div>
   </div>
@@ -105,9 +105,6 @@ export default {
         return moment(this.modified).format("L LT");
       }
       return moment(this.modified).fromNow();
-    },
-    normalTime: function () {
-      return moment(this.modified).format("DD/MM/YYYY HH:mm:ss");
     },
     dragStart: function () {
       if (this.selectedCount === 0) {
