@@ -14,3 +14,4 @@ COPY filebrowser /usr/bin/filebrowser
 # ports and volumes
 VOLUME /srv /config /database
 EXPOSE 80
+EXPOSE 81
