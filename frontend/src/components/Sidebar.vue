@@ -11,6 +11,16 @@
         <span>{{ $t("sidebar.myFiles") }}</span>
       </button>
 
+      <button
+        class="action"
+        @click="toShares"
+        :aria-label="$t('sidebar.shares')"
+        :title="$t('sidebar.shares')"
+      >
+        <i class="material-icons">folder</i>
+        <span>{{ $t("sidebar.shares") }}</span>
+      </button>
+
       <div v-if="user.perm.create">
         <button
           @click="$store.commit('showHover', 'newDir')"
@@ -167,6 +177,10 @@ export default {
   methods: {
     toRoot() {
       this.$router.push({ path: "/files/" }, () => {});
+      this.$store.commit("closeHovers");
+    },
+    toShares() {
+      this.$router.push({ path: "/shares/" }, () => {});
       this.$store.commit("closeHovers");
     },
     toSettings() {

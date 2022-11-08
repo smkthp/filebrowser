@@ -4,6 +4,7 @@ import Login from "@/views/Login";
 import Layout from "@/views/Layout";
 import Files from "@/views/Files";
 import Share from "@/views/Share";
+import SharesList from "@/views/Shares";
 import Users from "@/views/settings/Users";
 import User from "@/views/settings/User";
 import Settings from "@/views/Settings";
@@ -56,6 +57,11 @@ const router = new Router({
           path: "/share/*",
           name: "Share",
           component: Share,
+        },
+        {
+          path: "/shares",
+          name: "Shares",
+          component: SharesList,
         },
         {
           path: "/files/*",
